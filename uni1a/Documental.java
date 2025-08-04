@@ -1,18 +1,20 @@
 package uni1a;
 
-import java.util.ArrayList; // Necesario para List
-import java.util.List;     // Necesario para List
+import java.util.ArrayList;
+import java.util.List;
 
+// Subclase Documental que extiende de ContenidoAudiovisual
 public class Documental extends ContenidoAudiovisual {
     private String tema;
-    private List<Investigador> investigadores; // ¡NUEVO! Lista de objetos Investigador
+    private final List<Investigador> investigadores; // Relación de agregación: un documental tiene investigadores
 
     public Documental(String titulo, int duracionEnMinutos, String genero, String tema) {
         super(titulo, duracionEnMinutos, genero);
         this.tema = tema;
-        this.investigadores = new ArrayList<>(); // Inicializar la lista en el constructor
+        this.investigadores = new ArrayList<>();
     }
 
+    // Getters y setters
     public String getTema() {
         return tema;
     }
@@ -21,34 +23,35 @@ public class Documental extends ContenidoAudiovisual {
         this.tema = tema;
     }
 
-    // ¡NUEVO! Método para añadir investigadores
-    public void agregarInvestigador(Investigador investigador) {
-        if (investigador != null) {
-            this.investigadores.add(investigador);
-        }
-    }
-
-    // ¡NUEVO! Getter para la lista de investigadores
     public List<Investigador> getInvestigadores() {
         return investigadores;
     }
-    
+
+    public void agregarInvestigador(Investigador investigador) {
+        this.investigadores.add(investigador);
+    }
+
     @Override
-    public void mostrarDetalles() {
-        System.out.println("--- Detalles del Documental ---");
-        System.out.println("ID: " + getId());
-        System.out.println("Título: " + getTitulo());
-        System.out.println("Duración en minutos: " + getDuracionEnMinutos());
-        System.out.println("Género: " + getGenero());
-        System.out.println("Tema: " + this.tema);
-        System.out.println("Investigadores Participantes:");
+    public String mostrarDetalles() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Detalles del Documental:\n");
+        sb.append("ID: ").append(getId()).append("\n");
+        sb.append("Título: ").append(getTitulo()).append("\n");
+        sb.append("Duración en minutos: ").append(getDuracionEnMinutos()).append("\n");
+        sb.append("Género: ").append(getGenero()).append("\n");
+        sb.append("Tema: ").append(this.tema).append("\n");
+        sb.append("Investigadores: ");
         if (investigadores.isEmpty()) {
-            System.out.println("  No hay investigadores registrados para este documental.");
+            sb.append("N/A\n");
         } else {
-            for (Investigador inv : investigadores) {
-                System.out.println("  - " + inv.getNombre() + " (" + inv.getEspecialidad() + ", " + inv.getInstitucion() + ")");
+            for (int i = 0; i < investigadores.size(); i++) {
+                sb.append(investigadores.get(i).getNombre());
+                if (i < investigadores.size() - 1) {
+                    sb.append(", ");
+                }
             }
+            sb.append("\n");
         }
-        System.out.println();
+        return sb.toString();
     }
 }
