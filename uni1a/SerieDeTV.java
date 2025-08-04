@@ -1,51 +1,39 @@
 package uni1a;
 
-import java.util.ArrayList; // Necesario para List
-import java.util.List;     // Necesario para List
+import java.util.ArrayList;
+import java.util.List;
 
 public class SerieDeTV extends ContenidoAudiovisual {
-    // private int temporadas; // ¡MODIFICADO! Este atributo ya no es necesario si manejamos una lista de objetos Temporada
-    private List<Temporada> listaTemporadas; // ¡NUEVO! Lista de objetos Temporada
+    private List<Temporada> temporadas;
 
-    // ¡MODIFICADO! El constructor ya no recibe 'int temporadas'
+    // CONSTRUCTOR CORREGIDO: se eliminó el parámetro 'i'
     public SerieDeTV(String titulo, int duracionEnMinutos, String genero) {
         super(titulo, duracionEnMinutos, genero);
-        this.listaTemporadas = new ArrayList<>(); // Inicializar la lista en el constructor
+        this.temporadas = new ArrayList<>();
     }
 
-    // ¡NUEVO! Método para añadir temporadas
+    public List<Temporada> getTemporadas() {
+        return temporadas;
+    }
+
     public void agregarTemporada(Temporada temporada) {
-        if (temporada != null) {
-            this.listaTemporadas.add(temporada);
-        }
+        this.temporadas.add(temporada);
     }
 
-    // ¡NUEVO! Getter para la lista de temporadas
-    public List<Temporada> getListaTemporadas() {
-        return listaTemporadas;
-    }
-
-    // Opcional: Getter para obtener el número total de temporadas desde la lista
-    public int getNumeroTotalTemporadas() {
-        return listaTemporadas.size();
-    }
-    
+    // METODO CORREGIDO: devuelve un String en lugar de imprimir
     @Override
-    public void mostrarDetalles() {
-        System.out.println("--- Detalles de la Serie de TV ---");
-        System.out.println("ID: " + getId());
-        System.out.println("Título: " + getTitulo());
-        System.out.println("Duración en minutos: " + getDuracionEnMinutos());
-        System.out.println("Género: " + getGenero());
-        System.out.println("Número Total de Temporadas: " + getNumeroTotalTemporadas()); // Muestra el tamaño de la lista
-        System.out.println("Detalles de las Temporadas:");
-        if (listaTemporadas.isEmpty()) {
-            System.out.println("  No hay temporadas registradas para esta serie.");
-        } else {
-            for (Temporada temp : listaTemporadas) {
-                System.out.println("  - " + temp.toString()); // Usa el toString de Temporada
-            }
+    public String mostrarDetalles() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Detalles de la Serie de TV:\n");
+        sb.append("ID: ").append(getId()).append("\n");
+        sb.append("Título: ").append(getTitulo()).append("\n");
+        sb.append("Duración de episodio: ").append(getDuracionEnMinutos()).append(" minutos\n");
+        sb.append("Género: ").append(getGenero()).append("\n");
+        sb.append("Número de temporadas: ").append(this.temporadas.size()).append("\n");
+        sb.append("Temporadas: \n");
+        for (Temporada temporada : temporadas) {
+            sb.append("  - ").append(temporada.toString()).append("\n");
         }
-        System.out.println();
+        return sb.toString();
     }
 }
