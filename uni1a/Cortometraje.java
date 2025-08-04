@@ -1,53 +1,30 @@
 package uni1a;
 
 public class Cortometraje extends ContenidoAudiovisual {
-    private String festivalPresentacion;
-    private int premiosObtenidos;
+    private String festival;
 
-    public Cortometraje(String titulo, int duracionEnMinutos, String genero, String festivalPresentacion) {
+    // CONSTRUCTOR CORREGIDO: ahora recibe el 'festival'
+    public Cortometraje(String titulo, int duracionEnMinutos, String genero, String festival) {
         super(titulo, duracionEnMinutos, genero);
-        this.festivalPresentacion = festivalPresentacion;
-        this.premiosObtenidos = 0; // Inicialmente sin premios
+        this.festival = festival;
     }
 
-    // Getters
-    public String getFestivalPresentacion() {
-        return festivalPresentacion;
+    public String getFestival() {
+        return festival;
     }
 
-    public int getPremiosObtenidos() {
-        return premiosObtenidos;
+    public void setFestival(String festival) {
+        this.festival = festival;
     }
 
-    // Setters
-    public void setFestivalPresentacion(String festivalPresentacion) {
-        this.festivalPresentacion = festivalPresentacion;
-    }
-
-    public void setPremiosObtenidos(int premiosObtenidos) {
-        this.premiosObtenidos = premiosObtenidos;
-    }
-
-    // Métodos específicos
-    public void participarEnFestival(String festival) {
-        this.festivalPresentacion = festival; // Actualiza el festival si cambia
-        System.out.println(getTitulo() + " está participando en el festival: " + festival);
-    }
-
-    public void anunciarPremio() {
-        this.premiosObtenidos++;
-        System.out.println("¡Felicidades! " + getTitulo() + " ha ganado un premio. Total de premios: " + premiosObtenidos);
-    }
-
+    // METODO CORREGIDO: devuelve un String en lugar de imprimir
     @Override
-    public void mostrarDetalles() {
-        System.out.println("--- Detalles del Cortometraje ---");
-        System.out.println("ID: " + getId());
-        System.out.println("Título: " + getTitulo());
-        System.out.println("Duración en minutos: " + getDuracionEnMinutos());
-        System.out.println("Género: " + getGenero());
-        System.out.println("Presentado en Festival: " + festivalPresentacion);
-        System.out.println("Premios Obtenidos: " + premiosObtenidos);
-        System.out.println();
+    public String mostrarDetalles() {
+        return "Detalles del Cortometraje:\n" +
+                "ID: " + getId() + "\n" +
+                "Título: " + getTitulo() + "\n" +
+                "Duración en minutos: " + getDuracionEnMinutos() + "\n" +
+                "Género: " + getGenero() + "\n" +
+                "Festival: " + this.festival;
     }
 }
