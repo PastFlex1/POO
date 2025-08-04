@@ -1,47 +1,44 @@
 package uni1a;
 
-// No necesita importar List o ArrayList si solo representa una sola temporada
-// y no contiene una lista de episodios directamente.
-
 public class Temporada {
     private int numeroTemporada;
-    private int cantidadEpisodios;
     private int anioLanzamiento;
+    private int numeroEpisodios;
 
-    public Temporada(int numeroTemporada, int cantidadEpisodios, int anioLanzamiento) {
+    public Temporada(int numeroTemporada, int anioLanzamiento, int numeroEpisodios) {
         this.numeroTemporada = numeroTemporada;
-        this.cantidadEpisodios = cantidadEpisodios;
         this.anioLanzamiento = anioLanzamiento;
+        this.numeroEpisodios = numeroEpisodios;
     }
 
-    // Getters
+    // Getters y setters
     public int getNumeroTemporada() {
         return numeroTemporada;
     }
 
-    public int getCantidadEpisodios() {
-        return cantidadEpisodios;
+    public void setNumeroTemporada(int numeroTemporada) {
+        this.numeroTemporada = numeroTemporada;
     }
 
     public int getAnioLanzamiento() {
         return anioLanzamiento;
     }
 
-    // Setters
-    public void setNumeroTemporada(int numeroTemporada) {
-        this.numeroTemporada = numeroTemporada;
-    }
-
-    public void setCantidadEpisodios(int cantidadEpisodios) {
-        this.cantidadEpisodios = cantidadEpisodios;
-    }
-
     public void setAnioLanzamiento(int anioLanzamiento) {
         this.anioLanzamiento = anioLanzamiento;
     }
 
+    public int getNumeroEpisodios() {
+        return numeroEpisodios;
+    }
+
+    public void setNumeroEpisodios(int numeroEpisodios) {
+        this.numeroEpisodios = numeroEpisodios;
+    }
+
     @Override
     public String toString() {
-        return "Temporada " + numeroTemporada + " (" + cantidadEpisodios + " episodios, " + anioLanzamiento + ")";
+        return "Temporada " + numeroTemporada + " (" + anioLanzamiento + ")";
     }
 }
+
