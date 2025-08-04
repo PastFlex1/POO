@@ -1,54 +1,41 @@
 package uni1a;
 
-import java.util.ArrayList; // Necesario para List
-import java.util.List;     // Necesario para List
+import java.util.ArrayList;
+import java.util.List;
 
 public class Pelicula extends ContenidoAudiovisual {
     private String estudio;
-    private List<Actor> actores; // ¡NUEVO! Lista de objetos Actor
+    private List<Actor> actores; // Agregación
 
-    public Pelicula(String titulo, int duracionEnMinutos, String genero, String estudio) {
-        super(titulo, duracionEnMinutos, genero);
+    public Pelicula(String titulo, int duracion, String genero, String estudio) {
+        super(titulo, duracion, genero);
         this.estudio = estudio;
-        this.actores = new ArrayList<>(); // Inicializar la lista en el constructor
+        this.actores = new ArrayList<>();
     }
 
-    public String getEstudio() {
-        return estudio;
-    }
+    public String getEstudio() { return estudio; }
+    public List<Actor> getActores() { return actores; }
 
-    public void setEstudio(String estudio) {
-        this.estudio = estudio;
-    }
-
-    // ¡NUEVO! Método para añadir actores
+    // Método para manejar la agregación (Clean Code - Nombres claros)
     public void agregarActor(Actor actor) {
-        if (actor != null) {
-            this.actores.add(actor);
-        }
+        this.actores.add(actor);
     }
 
-    // ¡NUEVO! Getter para la lista de actores
-    public List<Actor> getActores() {
-        return actores;
-    }
-    
     @Override
-    public void mostrarDetalles() {
-        System.out.println("--- Detalles de la Película ---");
-        System.out.println("ID: " + getId());
-        System.out.println("Título: " + getTitulo());
-        System.out.println("Duración en minutos: " + getDuracionEnMinutos());
-        System.out.println("Género: " + getGenero());
-        System.out.println("Estudio: " + estudio);
-        System.out.println("Actores Principales:");
-        if (actores.isEmpty()) {
-            System.out.println("  No hay actores registrados para esta película.");
-        } else {
-            for (Actor actor : actores) {
-                System.out.println("  - " + actor.getNombre() + " (" + actor.getNacionalidad() + ")");
-            }
+    public String mostrarDetalles() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Título: %s (%s)\n", getTitulo(), getGenero()));
+        sb.append(String.format("Duración: %d min\n", getDuracionEnMinutos()));
+        sb.append(String.format("Estudio: %s\n", estudio));
+        sb.append("Actores: ");
+
+        // Uso de Streams para un código más funcional y limpio
+        actores.forEach(actor -> sb.append(actor.getNombre()).append(", "));
+
+        // Eliminar la última coma y espacio si hay actores
+        if (!actores.isEmpty()) {
+            sb.setLength(sb.length() - 2);
         }
-        System.out.println();
+        return sb.toString();
     }
 }
